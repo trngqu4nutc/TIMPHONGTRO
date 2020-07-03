@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace TIMPHONGTRO.Areas.Admin.Controllers
+namespace TIMPHONGTRO.Controllers
 {
-    public class HomesController : AuthController
+    public class RegisterController : Controller
     {
-        // GET: Admin/Home
+        // GET: Register
         public ActionResult Index()
         {
             return View();

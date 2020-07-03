@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="card-body login-card-body">
+    <p class="login-box-msg">Đăng nhập để tiếp tục</p>
+
+    <form>
+        <div class="input-group mb-3">
+            <input id="phone-number" type="text" class="form-control" placeholder="Số điện thoại">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                </div>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <input id="password" type="password" class="form-control" placeholder="Mật khẩu">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="icheck-primary">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">
+                        Remember Me
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="social-auth-links text-center mb-3">
+        <button id="btn-login" class="btn btn-block btn-primary">
+            Đăng nhập
+        </button>
+    </div>
+    <!-- /.social-auth-links -->
+
+    <p class="mb-1">
+        <a href="forgot-password.html">I forgot my password</a>
+    </p>
+    <p class="mb-0">
+        <a href="/register" class="text-center">Register a new membership</a>
+    </p>
+</div>
+
+@section scripts{
+    <script>
+        const account = {
+            phoneNum: '',
+            password: '',
+        }
+        const controller = {
+            init: () => {
+                controller.registerEvent();
+            },
+            registerEvent: () => {
+                $("#btn-login").off('click').on('click', function () {
+                    if (validate()) {
+                        toastr.info('Đang đăng nhập!');
+                        controller.signin();
+                    }
+                });
+            },
+            signin: () => {
+                $.ajax({
+                    url: '/login/signin',
+                    method: 'POST',
+                    data: {
+                        account: JSON.stringify(account)
+                    },
+                    dataType: 'json',
+                    success: (res) => {
+                        if (res.result == 1 || res.role == 1) {
+                            window.location.href = '/admin';
+                        } else if (res.result == 1 || res.role == 2) {
+                            window.location.href = '/';
+                        } else if (res.result == 0) {
+                            toastr.error('Tài khoản không tồn tại!');
+                        } else {
+                            toastr.error('Mật khẩu không chính xác!');
+                        }
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            }
+        }
+        const validate = () => {
+            account.phoneNum = $("#phone-number").val();
+            account.password = $("#password").val();
+            let check = false;
+            if (account.phoneNum == '') {
+                toastr.warning('Hãy nhập số điện thoại!');
+            } else if (account.password == '') {
+                toastr.warning('Hãy nhập mật khẩu!');
+            } else {
+                check = true;
+            }
+            return check;
+        }
+        controller.init();
+    </script>
+}

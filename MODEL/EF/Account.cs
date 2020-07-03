@@ -29,9 +29,9 @@ namespace MODEL.EF
         [StringLength(30)]
         public string Email { get; set; }
 
-        public int? RoleId { get; set; }
+        public int RoleId { get; set; }
 
-        public decimal? Money { get; set; }
+        public decimal Money { get; set; }
 
         public virtual Role Role { get; set; }
 

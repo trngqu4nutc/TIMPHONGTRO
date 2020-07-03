@@ -67,6 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="COMMON\BcryptPass.cs" />
+    <Compile Include="DAO\AccountDAO.cs" />
+    <Compile Include="DTO\AccountDTO.cs" />
+    <Compile Include="DTO\PagedResult.cs" />
     <Compile Include="EF\Account.cs" />
     <Compile Include="EF\Category.cs" />
     <Compile Include="EF\District.cs" />
@@ -77,13 +80,12 @@
     <Compile Include="EF\Role.cs" />
     <Compile Include="EF\Ward.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UTIL\AccountMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAO\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
