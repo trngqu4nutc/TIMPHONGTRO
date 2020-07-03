@@ -7,8 +7,7 @@ namespace MODEL.EF
 
     public partial class NTDbContext : DbContext
     {
-        public NTDbContext()
-            : base("name=NTDbContext")
+        public NTDbContext():base("name=NTDbContext")
         {
         }
 
