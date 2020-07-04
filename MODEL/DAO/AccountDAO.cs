@@ -55,5 +55,27 @@ namespace MODEL.DAO
                 return -1;
             }
         }
+        public PagedResult<AccountDTO> GetAll(string phoneNumber, int page, int pageSize)
+        {
+            var query = from a in _context.Accounts
+                        select new AccountDTO()
+                        {
+                            AccountId = a.AccountId,
+                            Fullname = a.Fullname,
+                            PhoneNum = a.PhoneNum,
+                            Email = a.Email,
+                            Money = a.Money,
+                        };
+            if (!string.IsNullOrEmpty(phoneNumber))
+            {
+                query = query.Where(x => x.PhoneNum.Contains(phoneNumber));
+            }
+            var result = new PagedResult<AccountDTO>();
+            result.TotalRecord = query.Count();
+            result.Items = query.OrderBy(x => x.AccountId)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize).ToList();
+            return result;
+        }
     }
 }
