@@ -16,7 +16,7 @@ namespace MODEL.UTIL
             var account = new Account();
             account.PhoneNum = accountDTO.PhoneNum;
             account.Password = BcryptPass.HashPassword(accountDTO.Password);
-            account.Fullname = account.Fullname;
+            account.Fullname = accountDTO.Fullname;
             account.RoleId = 2;
             return account;
         }

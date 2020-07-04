@@ -12,7 +12,7 @@
             <input id="phone-number" type="text" class="form-control" placeholder="Số điện thoại">
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-envelope"></span>
+                    <i class="fas fa-phone"></i>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
             <input id="password" type="password" class="form-control" placeholder="Mật khẩu">
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
+                    <i class="fas fa-lock"></i>
                 </div>
             </div>
         </div>
@@ -44,10 +44,10 @@
     <!-- /.social-auth-links -->
 
     <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <a href="forgot-password.html">Quên mật khẩu?</a>
     </p>
     <p class="mb-0">
-        <a href="/register" class="text-center">Register a new membership</a>
+        <a href="/register" class="text-center">Đăng ký tài khoản mới</a>
     </p>
 </div>
 
@@ -78,9 +78,10 @@
                     },
                     dataType: 'json',
                     success: (res) => {
-                        if (res.result == 1 || res.role == 1) {
+                        if (res.result == 1 && res.role == 1) {
+                            console.log(res.result + ' ' + res.role);
                             window.location.href = '/admin';
-                        } else if (res.result == 1 || res.role == 2) {
+                        } else if (res.result == 1 && res.role == 2) {
                             window.location.href = '/';
                         } else if (res.result == 0) {
                             toastr.error('Tài khoản không tồn tại!');
