@@ -77,5 +77,45 @@ namespace MODEL.DAO
                             .Take(pageSize).ToList();
             return result;
         }
+        public int UpdatePassword(string phoneNumber, List<string> passwords)
+        {
+            var account = _context.Accounts.FirstOrDefault(x => x.PhoneNum == phoneNumber);
+            if(account != null)
+            {
+                if(BcryptPass.ValidatePassword(passwords[0], account.Password))
+                {
+                    account.Password = BcryptPass.HashPassword(passwords[1]);
+                    try
+                    {
+                        _context.SaveChanges();
+                        return 1;
+                    }
+                    catch (Exception)
+                    {
+                        return -1;
+                    }
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            return -1;
+        }
+        public int UpdateAccount(AccountDTO accountDTO)
+        {
+            var account = _context.Accounts.FirstOrDefault(x => x.PhoneNum == accountDTO.PhoneNum);
+            account.Fullname = accountDTO.Fullname;
+            account.Email = accountDTO.Email;
+            try
+            {
+                _context.SaveChanges();
+                return 1;
+            }
+            catch(Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

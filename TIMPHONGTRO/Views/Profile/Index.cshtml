@@ -1,8 +1,250 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Hồ sơ cá nhân";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+    var account = (MODEL.DTO.AccountDTO)Session[TIMPHONGTRO.Common.Constants.USER_SESSION];
 }
 
-<h2>Index</h2>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Quản lý hồ sơ cá nhân</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/profile">Profile</a></li>
+                    <li class="breadcrumb-item active">Update</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3>Cập nhật</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group row mt-3">
+                    <label class="col-md-2 offset-md-2 col-form-label">Mã thành viên</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" disabled value="#@account.AccountId" />
+                    </div>
+                </div>
+                <div class="form-group row mt-4">
+                    <label class="col-md-2 offset-md-2 col-form-label">Số điện thoại</label>
+                    <div class="col-md-6">
+                        <input id="phone-number" type="text" class="form-control" disabled value="@account.PhoneNum" />
+                    </div>
+                </div>
+                <div class="form-group row mt-4">
+                    <label class="col-md-2 offset-md-2 col-form-label">Tên liên hệ</label>
+                    <div class="col-md-6">
+                        <input id="fullname" type="text" class="form-control" value="@account.Fullname" />
+                    </div>
+                </div>
+                <div class="form-group row mt-4">
+                    <label class="col-md-2 offset-md-2 col-form-label">Email</label>
+                    <div class="col-md-6">
+                        <input id="email" type="email" class="form-control" value="@account.Email" placeholder="tuandz@gmail.com" />
+                    </div>
+                </div>
+                <div class="form-group row mt-4">
+                    <label class="col-md-2 offset-md-2 col-form-label">Mật khẩu</label>
+                    <div class="col-md-6">
+                        <button id="btn-password" class="btn btn-outline-info">Đổi mật khẩu</button>
+                    </div>
+                </div>
+                <div class="form-group row mt-4">
+                    <label class="col-md-2 col-form-label"></label>
+                    <div class="col-md-8">
+                        <button id="btn-update" class="btn btn-primary mb-2 btn-block">Cập nhật</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Đổi mật khẩu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-data">
+                    <div class="row">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <input id="password" type="password" class="form-control" name="password" placeholder="Mật khẩu hiện tại" />
+                            </div>
+                            <div class="form-group">
+                                <input id="newpassword" type="password" class="form-control" name="newpassword" placeholder="Mật khẩu mới" />
+                            </div>
+                            <div class="form-group">
+                                <input id="repassword" type="password" class="form-control" name="repassword" placeholder="Nhập lại mật khẩu" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                <button id="btn-save" type="button" class="btn btn-success">Lưu thay đổi</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts{
+    <script src="~/Assets/admin/js/jquery.validate.min.js"></script>
+    <script>
+        const pass = {
+            password: '',
+            newpassword: '',
+            repassword: ''
+        }
+        const account = {
+            phoneNum: '',
+            fullname: '',
+            email: ''
+        }
+        const controller = {
+            init: () => {
+                controller.registerEvent();
+            },
+            registerEvent: () => {
+                $("#form-data").validate({
+                    rules: {
+                        password: {
+                            required: true,
+                            minlength: 3
+                        },
+                        newpassword: {
+                            required: true,
+                            minlength: 3
+                        },
+                        repassword: {
+                            required: true,
+                            minlength: 3
+                        }
+                    },
+                    messages: {
+                        password: {
+                            required: "Hãy nhập tên mật khẩu cũ!",
+                            minlength: "Mật khẩu phải trên 5 kí tự!"
+                        },
+                        newpassword: {
+                            required: "Hãy nhập mật khẩu mới!",
+                            minlength: "Mật khẩu phải trên 5 kí tự!"
+                        },
+                        repassword: {
+                            required: "Hãy nhập lại mật khẩu mới!",
+                            minlength: "Mật khẩu phải trên 5 kí tự!"
+                        }
+                    }
+                });
+                $("#btn-password").off('click').on('click', function () {
+                    controller.clearModal();
+                    $('#modal').modal('show');
+                });
+                $("#btn-save").off('click').on('click', function () {
+                    if ($("#form-data").valid()) {
+                        if (checkPassword()) {
+                            controller.updatePassword();
+                            $("#modal").modal('hide');
+                            toastr.clear();
+                        } else {
+                            toastr.warning('2 mật khẩu mới phải giống nhau!');
+                        }
+                    }
+                });
+                $("#btn-update").off('click').on('click', function () {
+                    if (checkAccount()) {
+                        controller.updateAccount();
+                        toastr.clear();
+                    } else {
+                        toastr.warning('2 mật khẩu mới phải giống nhau!');
+                    }
+                });
+            },
+            updatePassword: () => {
+                $.ajax({
+                    url: '/Profile/UpdatePassword',
+                    method: 'POST',
+                    data: {
+                        data: JSON.stringify([pass.password, pass.newpassword])
+                    },
+                    dataType: 'json',
+                    success: (res) => {
+                        if (res.data == 1) {
+                            toastr.success('Cập nhật mật khẩu thành công!');
+                        } else if (res.data == 0) {
+                            toastr.warning('Mật khẩu không chính xác!');
+                        } else {
+                            toastr.error('Có lỗi xảy ra!');
+                        }
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            },
+            updateAccount: () => {
+                $.ajax({
+                    url: '/Profile/UpdateAccount',
+                    method: 'POST',
+                    data: {
+                        data: JSON.stringify(account)
+                    },
+                    dataType: 'json',
+                    success: (res) => {
+                        if (res.data == 1) {
+                            toastr.success('Cập nhật thành công!');
+                        } else {
+                            toastr.error('Có lỗi xảy ra!');
+                        }
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            },
+            clearModal: () => {
+                $("#password").val('');
+                $("#newpassword").val('');
+                $("#repassword").val('');
+            }
+        }
+        const checkPassword = () => {
+            pass.password = $("#password").val();
+            pass.newpassword = $("#newpassword").val();
+            pass.repassword = $("#repassword").val();
+            if (pass.newpassword == pass.repassword) {
+                return true;
+            }
+            return false;
+        }
+        const checkAccount = () => {
+            account.phoneNum = $("#phone-number").val();
+            account.fullname = $("#fullname").val();
+            account.email = $("#email").val();
+            if (account.fullname == '') {
+                return false;
+            }
+            return true;
+        }
+        controller.init();
+    </script>
+}
 
