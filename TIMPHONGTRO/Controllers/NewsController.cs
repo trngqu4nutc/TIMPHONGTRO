@@ -23,6 +23,19 @@ namespace TIMPHONGTRO.Controllers
         {
             return View();
         }
+        public ActionResult Edit()
+        {
+            return View();
+        }
+        [HttpGet]
+        public JsonResult LoadNews(int newid)
+        {
+            var result = new NewsDAO().FindById(newid);
+            return Json(new
+            {
+                data = result
+            }, JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public JsonResult LoadProvincial()
         {
@@ -81,7 +94,7 @@ namespace TIMPHONGTRO.Controllers
                     });
                 }
             }
-            var check = new NewsDAO().AddNew(newDTO);
+            var check = newDTO.newId > 0 ? new NewsDAO().UpdateNew(newDTO) : new NewsDAO().AddNew(newDTO);
             return Json(new
             {
                 data = check

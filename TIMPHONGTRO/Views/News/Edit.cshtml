@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Thêm mới bài viết";
+    ViewBag.Title = "Chỉnh sửa bài viết";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
     var account = (MODEL.DTO.AccountDTO)Session[TIMPHONGTRO.Common.Constants.USER_SESSION];
 }
@@ -14,7 +14,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/news">News</a></li>
-                    <li class="breadcrumb-item active">Add</li>
+                    <li class="breadcrumb-item active">Edit</li>
                 </ol>
             </div>
         </div>
@@ -28,7 +28,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-8">
-                                <h3 class="">Đăng tin mới</h3>
+                                <h3 class="">Chỉnh sửa bài viết</h3>
                             </div>
                         </div>
                     </div>
@@ -295,7 +295,7 @@
                                 </div>
                                 <div class="form-group row mt-5">
                                     <div class="col-md-12">
-                                        <button id="btn_save" class="btn btn-success mb-5 btn-lg btn-block">Hoàn tất</button>
+                                        <button id="btn_save" class="btn btn-success mb-5 btn-lg btn-block">Hoàn tất cập nhật</button>
                                     </div>
                                 </div>
                             </div>
@@ -309,8 +309,9 @@
 @section scripts{
     <script>
         let dem = 1;
-        const state = {
-            accountId: '',
+        let state = {
+            newId: 0,
+            accountId: 0,
             provincialId: 0,
             districtId: 0,
             wardId: 0,
@@ -391,6 +392,7 @@
                         controller.saveNews();
                     }
                 });
+                controller.loadNews();
             },
             saveNews: () => {
                 $.ajax({
@@ -402,7 +404,7 @@
                     dataType: 'json',
                     success: (res) => {
                         if (res.data == 1) {
-                            toastr.success("Thêm mới bài đăng thành công");
+                            toastr.success("Cập nhật bài đăng thành công");
                         } else {
                             toastr.error("Có lỗi xảy ra!");
                         }
@@ -446,6 +448,24 @@
                     }
                 });
             },
+            loadNews: () => {
+                state.newId = parseInt(location.href.split('=')[1]);
+                $.ajax({
+                    url: '/News/LoadNews',
+                    method: 'GET',
+                    data: {
+                        newid: state.newId
+                    },
+                    dataType: 'json',
+                    success: (res) => {
+                        state = res.data;
+                        controller.setData();
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            },
             loadProvincial: () => {
                 $.ajax({
                     url: '/News/LoadProvincial',
@@ -461,7 +481,7 @@
                     }
                 });
             },
-            loadDistrict: () => {
+            loadDistrict: (isLoad = false) => {
                 $.ajax({
                     url: '/News/LoadDistrict',
                     method: 'GET',
@@ -475,13 +495,16 @@
                             html += `<option value="${item.DistrictId}">${item.Name}</option>`;
                         });
                         $("#sl_district").html(html);
+                        if (isLoad == true) {
+                            $("#sl_district").val(state.districtId);
+                        }
                     },
                     error: (err) => {
                         console.log(err);
                     }
                 });
             },
-            loadWard: () => {
+            loadWard: (isLoad = false) => {
                 $.ajax({
                     url: '/News/LoadWard',
                     method: 'GET',
@@ -500,6 +523,10 @@
                         });
                         $("#sl_ward").html(htmlWard);
                         $("#sl_street").html(htmlStreet);
+                        if (isLoad == true) {
+                            $("#sl_ward").val(state.wardId);
+                            $("#sl_street").val(state.streetId);
+                        }
                     },
                     error: (err) => {
                         console.log(err);
@@ -562,14 +589,34 @@
                     toastr.warning("Hãy nhập giá!");
                 } else if (state.area == '') {
                     toastr.warning("Hãy nhập diện tích!");
-                } else if (state.baseImages.length == 0) {
-                    toastr.warning("Hãy chọn hình ảnh để thuê nhanh hơn!");
                 } else {
                     return true;
                 }
                 return false;
+            },
+            setData: () => {
+                $("#sl_provincial").val(state.provincialId);
+                controller.loadDistrict(true);
+                controller.loadWard(true);
+                $("#number").val(state.homeNum);
+                $("#address").val(state.address);
+                $("#sl_category").val(state.categoryId);
+                $("#title").val(state.title);
+                $("#short_content").val(state.shortContent);
+                $("#content").val(state.content);
+                $("#price").val(state.price);
+                $("#area").val(state.area);
+                $("#sl_sex").val(state.sex);
+                $("#sl_type").val(state.type);
+                $("#sl_day").val(state.time);
+                address.provincial = $("#sl_provincial").children("option").filter(":selected").text();
+                address.district = $("#sl_district").children("option").filter(":selected").text();
+                address.ward = $("#sl_ward").children("option").filter(":selected").text();
+                address.street = $("#sl_street").children("option").filter(":selected").text();
+                address.number = state.homeNum;
             }
         }
         controller.init();
     </script>
 }
+

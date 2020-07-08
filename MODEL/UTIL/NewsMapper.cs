@@ -10,10 +10,8 @@ namespace MODEL.UTIL
 {
     public static class NewsMapper
     {
-        public static News toNews(NewDTO newDTO)
+        public static News toNews(News news, NewDTO newDTO)
         {
-            News news = new News();
-            news.AccountId = newDTO.accountId;
             news.ProvincialId = newDTO.provincialId;
             news.DistrictId = newDTO.districtId;
             news.WardId = newDTO.wardId;
@@ -27,7 +25,12 @@ namespace MODEL.UTIL
             news.Price = newDTO.price;
             news.Area = newDTO.area;
             news.Sex = newDTO.sex;
-            news.StartDate = DateTime.Now;
+            if(newDTO.newId == 0)
+            {
+                news.AccountId = newDTO.accountId;
+                news.ActiveFlag = 0;
+                news.StartDate = DateTime.Now;
+            }
             var startMiliseconds = ((DateTimeOffset)news.StartDate).ToUnixTimeMilliseconds();
             if (newDTO.type.Equals("day"))
             {
@@ -46,8 +49,29 @@ namespace MODEL.UTIL
                 var date = (new DateTime(1970, 1, 1)).AddMilliseconds(totalMiliseconds);
                 news.EndDate = date;
             }
-            news.ActiveFlag = 0;
             return news;
+        }
+        public static NewDTO toDTO(News news)
+        {
+            var newDTO = new NewDTO();
+            newDTO.newId = news.NewsId;
+            newDTO.accountId = news.AccountId;
+            newDTO.provincialId = news.ProvincialId;
+            newDTO.districtId = news.DistrictId;
+            newDTO.wardId = news.WardId;
+            newDTO.streetId = news.StreetId;
+            newDTO.categoryId = news.CategoryId;
+            newDTO.title = news.Title;
+            newDTO.shortContent = news.SortContent;
+            newDTO.content = news.Content;
+            newDTO.address = news.Address;
+            newDTO.homeNum = news.HomeNum;
+            newDTO.price = news.Price;
+            newDTO.area = news.Area;
+            newDTO.sex = news.Sex;
+            newDTO.type = "day";
+            newDTO.time = int.Parse((((((DateTimeOffset)news.EndDate).ToUnixTimeMilliseconds() - ((DateTimeOffset)news.StartDate).ToUnixTimeMilliseconds()) / 86400000)).ToString()) + 1;
+            return newDTO;
         }
     }
 }
