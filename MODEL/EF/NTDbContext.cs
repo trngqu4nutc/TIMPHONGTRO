@@ -7,7 +7,8 @@ namespace MODEL.EF
 
     public partial class NTDbContext : DbContext
     {
-        public NTDbContext():base("name=NTDbContext")
+        public NTDbContext()
+            : base("name=NTDbContext")
         {
         }
 
@@ -18,6 +19,7 @@ namespace MODEL.EF
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Provincial> Provincials { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Street> Streets { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

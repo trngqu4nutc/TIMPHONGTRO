@@ -1,0 +1,575 @@
+﻿
+@{
+    ViewBag.Title = "Thêm mới bài viết";
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+    var account = (MODEL.DTO.AccountDTO)Session[TIMPHONGTRO.Common.Constants.USER_SESSION];
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Quản lý bài viết</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/news">News</a></li>
+                    <li class="breadcrumb-item active">Add</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3 class="">Đăng tin mới</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>Địa chỉ cho thuê</h3>
+                                    </div>
+                                </div>
+                                @*address*@
+                                <div class="row mt-3">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Tỉnh/Thành phố</label>
+                                            <select class="form-control" id="sl_provincial">
+                                                <option value="0">-- Chọn Tỉnh/TP --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Quận/Huyện</label>
+                                            <select class="form-control" id="sl_district">
+                                                <option value="0">-- Quận/huyện -- </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Phường/Xã</label>
+                                            <select class="form-control" id="sl_ward">
+                                                <option value="0">-- Phường/Xã --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Đường/Phố</label>
+                                            <select class="form-control" id="sl_street">
+                                                <option value="0">-- Đường/Phố --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*number*@
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Số nhà</label>
+                                            <input type="text" id="number" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Địa chỉ chính xác</label>
+                                            <input type="text" id="address" disabled class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-5">
+                                    <div class="col-md-12">
+                                        <h3>Thông tin mô tả</h3>
+                                    </div>
+                                </div>
+                                @*category*@
+                                <div class="form-group row mt-3">
+                                    <label for="post_cat" class="col-md-12 col-form-label">Loại chuyên mục</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="sl_category" name="loai_chuyen_muc" required="" data-msg-required="Chưa chọn loại chuyên mục">
+                                            <option value="0">-- Chọn loại chuyên mục --</option>
+                                            <option value="1">Phòng trọ, nhà trọ</option>
+                                            <option value="2">Nhà thuê nguyên căn</option>
+                                            <option value="3">Cho thuê căn hộ</option>
+                                            <option value="4">Tìm người ở ghép</option>
+                                            <option value="5">Cho thuê mặt bằng</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                @*title*@
+                                <div class="form-group row">
+                                    <label for="post_title" class="col-md-12 col-form-label">Tiêu đề</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" name="tieu_de" id="title" value="" minlength="30" maxlength="120" required="" data-msg-required="Tiêu đề không được để trống" data-msg-minlength="Tiêu đề quá ngắn" data-msg-maxlength="Tiêu đề quá dài">
+                                    </div>
+                                </div>
+                                @*short content*@
+                                <div class="form-group row">
+                                    <label for="post_title" class="col-md-12 col-form-label">Mô tả ngắn</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" name="mo_ta_ngan" id="short_content" value="" minlength="30" maxlength="120" required="" data-msg-required="Mô tả ngắn không được để trống" data-msg-minlength="Mô tả quá ngắn" data-msg-maxlength="Mô tả quá dài">
+                                    </div>
+                                </div>
+                                @*content*@
+                                <div class="form-group row">
+                                    <label for="post_content" class="col-md-12 col-form-label">Nội dung mô tả</label>
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" name="noi_dung" id="content" rows="10" required="" minlength="100" data-msg-required="Bạn chưa nhập nội dung" data-msg-minlength="Nội dung tối thiểu 100 kí tự"></textarea>
+                                    </div>
+                                </div>
+                                @*phone*@
+                                <div class="form-group row">
+                                    <label for="phone" class="col-md-12 col-form-label">Thông tin liên hệ</label>
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-3">
+                                            <input type="hidden" id="accountId" value="@account.AccountId" />
+                                            <input id="phone" type="number" name="phone" class="form-control valid" readonly="readonly" required="" data-msg-required="Số điện thoại" value="@account.PhoneNum" aria-invalid="false">
+                                        </div>
+                                    </div>
+                                </div>
+                                @*price*@
+                                <div class="form-group row">
+                                    <label for="price" class="col-md-12 col-form-label">Giá cho thuê</label>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input id="price" name="gia" pattern="[0-9.]+" type="number" class="form-control" required="" data-msg-required="Bạn chưa nhập giá phòng" data-msg-min="Giá phòng chưa đúng">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">đồng</span>
+                                            </div>
+                                        </div>
+                                        <small class="form-text text-muted">Nhập đầy đủ số, ví dụ 1 triệu thì nhập là 1000000</small>
+                                    </div>
+                                    <label for="text_giachothue" id="text_giachothue" class="col-sm-12 control-label js-number-text" style="color: red;"></label>
+                                </div>
+                                @*area*@
+                                <div class="form-group row">
+                                    <label for="area" class="col-md-12 col-form-label">Diện tích</label>
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-3">
+                                            <input id="area" type="number" attern="[0-9.]+" name="dien_tich" max="1000" class="form-control" required="" data-msg-required="Bạn chưa nhập diện tích">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">m<sup>2</sup></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="doi_tuong" class="col-md-12 col-form-label">Đối tượng cho thuê</label>
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-3">
+                                            <select class="form-control valid" id="sl_sex" name="doi_tuong" aria-invalid="false">
+                                                <option value="Tất cả">-- Tất cả --</option>
+                                                <option value="Nam">Nam</option>
+                                                <option value="Nữ">Nữ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-5">
+                                    <div class="col-md-12">
+                                        <h3>Hình ảnh</h3>
+                                    </div>
+                                </div>
+                                @*image*@
+                                <div id="form_image" class="form-group row">
+                                    <div class="col-md-12">
+                                        <p>Cập nhật hình ảnh rõ ràng sẽ cho thuê nhanh hơn</p>
+                                        <div class="form-group">
+                                            <div for="browse_photos" class="browse_photos js-dropzone dz-clickable"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload" style="width: 50px; height: 50px; display: block; margin: 0 auto; pointer-events: none;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg><span class="js-btn-chon-anh">Thêm Ảnh</span></div>
+                                        </div>
+                                        <div class="list_photos row dropzone-previews" id="list-photos-dropzone-previews">
+
+                                        </div>
+                                        <div id="tpl" style="display:none">
+                                            <div class="photo_item col-md-2 col-3 js-photo-manual">
+                                                <div class="photo"><img data-dz-thumbnail=""></div>
+                                                <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
+                                                <div class="bottom clearfix">
+                                                    <span class="photo_name" data-dz-name=""></span>
+                                                    <span class="photo_delete" data-dz-remove=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg> Xóa</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input id="input_image" hidden type='file' onchange="controller.readURL(this);" />
+                                        <div id="images" class="row">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-5">
+                                    <div class="col-md-12">
+                                        <h3>Chọn mức thời gian</h3>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-4 js-group-package-type">
+                                        <div class="form-group">
+                                            <label for="post_cat" class="col-form-label">Gói thời gian</label>
+                                            <select class="form-control" id="sl_type">
+                                                <option value="day">Đăng theo ngày</option>
+                                                <option value="week">Đăng theo tuần</option>
+                                                <option value="month">Đăng theo tháng</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 js-group-type-date">
+                                        <div class="form-group">
+                                            <div class="js-package-type js-package-type-day">
+                                                <label class="col-form-label" for="formGroupInputSmall">Số ngày</label>
+                                                <select id="sl_day" class="form-control valid" name="total_day" aria-invalid="false">
+                                                    <option value="3" disabled="disabled">3 ngày</option>
+                                                    <option value="4" disabled="disabled">4 ngày</option>
+                                                    <option value="5">5 ngày</option>
+                                                    <option value="6">6 ngày</option>
+                                                    <option value="7">7 ngày</option>
+                                                    <option value="8">8 ngày</option>
+                                                    <option value="9">9 ngày</option>
+                                                    <option value="10">10 ngày</option>
+                                                    <option value="11">11 ngày</option>
+                                                    <option value="12">12 ngày</option>
+                                                    <option value="13">13 ngày</option>
+                                                    <option value="14">14 ngày</option>
+                                                    <option value="15">15 ngày</option>
+                                                    <option value="16">16 ngày</option>
+                                                    <option value="17">17 ngày</option>
+                                                    <option value="18">18 ngày</option>
+                                                    <option value="19">19 ngày</option>
+                                                    <option value="20">20 ngày</option>
+                                                    <option value="21">21 ngày</option>
+                                                    <option value="22">22 ngày</option>
+                                                    <option value="23">23 ngày</option>
+                                                    <option value="24">24 ngày</option>
+                                                    <option value="25">25 ngày</option>
+                                                    <option value="26">26 ngày</option>
+                                                    <option value="27">27 ngày</option>
+                                                    <option value="28">28 ngày</option>
+                                                    <option value="29">29 ngày</option>
+                                                    <option value="30">30 ngày</option>
+                                                </select>
+                                            </div>
+                                            <div class="js-package-type js-package-type-week hidden">
+                                                <label class="col-form-label" for="formGroupInputSmall">Số tuần</label>
+                                                <select id="sl_week" class="form-control" name="total_week">
+                                                    <option value="1">1 tuần</option>
+                                                    <option value="2">2 tuần</option>
+                                                    <option value="3">3 tuần</option>
+                                                    <option value="4">4 tuần</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group js-package-type js-package-type-month hidden">
+                                                <label class="col-form-label" for="formGroupInputSmall">Số tháng</label>
+                                                <select id="sl_month" class="form-control" name="total_month">
+                                                    <option value="1">1 tháng</option>
+                                                    <option value="2">2 tháng</option>
+                                                    <option value="3">3 tháng</option>
+                                                    <option value="4">4 tháng</option>
+                                                    <option value="5">5 tháng</option>
+                                                    <option value="6">6 tháng</option>
+                                                    <option value="7">7 tháng</option>
+                                                    <option value="8">8 tháng</option>
+                                                    <option value="9">9 tháng</option>
+                                                    <option value="10">10 tháng</option>
+                                                    <option value="11">11 tháng</option>
+                                                    <option value="12">12 tháng</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-5">
+                                    <div class="col-md-12">
+                                        <button id="btn_save" class="btn btn-success mb-5 btn-lg btn-block">Hoàn tất</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script>
+        let dem = 1;
+        const state = {
+            accountId: '',
+            provincialId: 0,
+            districtId: 0,
+            wardId: 0,
+            streetId: 0,
+            homeNum: '',
+            address: '',
+            categoryId: 0,
+            title: '',
+            content: '',
+            shortContent: '',
+            price: 0,
+            area: '',
+            sex: '',
+            baseImages: [],
+            type: '',
+            time: 0
+        }
+        const address = {
+            provincial: '',
+            district: '',
+            ward: '',
+            street: '',
+            number: ''
+        }
+        const controller = {
+            init: () => {
+                controller.loadProvincial();
+                controller.registerEvent();
+            },
+            registerEvent: () => {
+                $(".dz-clickable").click(function () {
+                    $("#input_image").click();
+                });
+                $('#sl_time').off('change').on('change', function () {
+                    if ($(this).val() == "day") {
+                        $(".js-package-type").addClass('hidden');
+                        $(".js-package-type-day").removeClass('hidden');
+                    } else if ($(this).val() == "week") {
+                        $(".js-package-type").addClass('hidden');
+                        $(".js-package-type-week").removeClass('hidden');
+                    } else {
+                        $(".js-package-type").addClass('hidden');
+                        $(".js-package-type-month").removeClass('hidden');
+                    }
+                });
+                $('#sl_provincial').off('change').on('change', function () {
+                    address.provincial = $(this).children("option").filter(":selected").text();
+                    state.provincialId = parseInt($(this).val());
+                    controller.loadDistrict();
+                    controller.setAddress();
+                });
+                $('#sl_district').off('change').on('change', function () {
+                    address.district = $(this).children("option").filter(":selected").text();
+                    state.districtId = parseInt($(this).val());
+                    controller.loadWard();
+                    controller.setAddress();
+                });
+                $('#sl_ward').off('change').on('change', function () {
+                    address.ward = $(this).children("option").filter(":selected").text();
+                    state.wardId = parseInt($(this).val());
+                    controller.setAddress();
+                });
+                $('#sl_street').off('change').on('change', function () {
+                    address.street = $(this).children("option").filter(":selected").text();
+                    state.streetId = parseInt($(this).val());
+                    controller.setAddress();
+                });
+                $('#number').keyup(function () {
+                    state.homeNum = $(this).val();
+                    address.number = $(this).val();
+                    controller.setAddress();
+                });
+                $("#btn_save").off('click').on('click', function () {
+                    if (controller.setState()) {
+                        state.baseImages = state.baseImages.map((item) => {
+                            return item.base.split(',')[1];
+                        });
+                        controller.saveNews();
+                    }
+                });
+            },
+            saveNews: () => {
+                $.ajax({
+                    url: '/News/SaveNews',
+                    method: 'POST',
+                    data: {
+                        news: JSON.stringify(state)
+                    },
+                    dataType: 'json',
+                    success: (res) => {
+                        if (res.data == 1) {
+                            toastr.success("Thêm mới bài đăng thành công");
+                        } else {
+                            toastr.error("Có lỗi xảy ra!");
+                        }
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            },
+            readURL: (input) => {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    $("#images").append(`<div class="photo col-md-3 mb-2" onclick="controller.onDelete(this)" data-id="${dem}"><img class="photo_item blah blah_${dem}" title="click để xóa ảnh" src="#" alt="your image"/></div>`)
+                    reader.onload = function (e) {
+                        $(`.blah_${dem}`)
+                            .attr('src', e.target.result)
+                            .width(150)
+                            .height(200);
+                        state.baseImages.push({ index: dem, base: e.target.result });
+                        console.log(state.baseImages.map((item) => {
+                            return item.base;
+                        }));
+                        dem++;
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            },
+            onDelete: (el) => {
+                Swal.fire({
+                    title: 'Bạn chắc chắn muốn xóa hình ảnh này?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa ảnh!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.value) {
+                        $(el).remove();
+                        state.baseImages = state.baseImages.filter(item => item.index != $(el).data('id'));
+                    }
+                });
+            },
+            loadProvincial: () => {
+                $.ajax({
+                    url: '/News/LoadProvincial',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: (res) => {
+                        $.each(res.data, function (i, item) {
+                            $("#sl_provincial").append(`<option value="${item.ProvincialId}">${item.Name}</option>`)
+                        });
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            },
+            loadDistrict: () => {
+                $.ajax({
+                    url: '/News/LoadDistrict',
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        keyLoad: state.provincialId
+                    },
+                    success: (res) => {
+                        let html = '<option value="">-- Quận/huyện --</option>';
+                        $.each(res.data, function (i, item) {
+                            html += `<option value="${item.DistrictId}">${item.Name}</option>`;
+                        });
+                        $("#sl_district").html(html);
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            },
+            loadWard: () => {
+                $.ajax({
+                    url: '/News/LoadWard',
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        keyLoad: state.districtId
+                    },
+                    success: (res) => {
+                        let htmlWard = '<option value="">-- Phường/Xã --</option>';
+                        let htmlStreet = '<option value="">-- Đường/Phố --</option>';
+                        $.each(res.wards, function (i, item) {
+                            htmlWard += `<option value="${item.WardId}">${item.Name}</option>`;
+                        });
+                        $.each(res.streets, function (i, item) {
+                            htmlStreet += `<option value="${item.StreetId}">${item.Name}</option>`;
+                        });
+                        $("#sl_ward").html(htmlWard);
+                        $("#sl_street").html(htmlStreet);
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            },
+            setAddress: () => {
+                state.address = ``;
+                if (address.number != '') {
+                    state.address += `${address.number} `;
+                }
+                if (address.street != '') {
+                    state.address += `${address.street}, `;
+                }
+                if (address.ward != '') {
+                    state.address += `${address.ward}, `;
+                }
+                if (address.district != '') {
+                    state.address += `${address.district}, `;
+                }
+                if (address.provincial != '') {
+                    state.address += `${address.provincial}`;
+                }
+                $("#address").val(state.address);
+            },
+            setState: () => {
+                state.accountId = $("#accountId").val();
+                state.title = $("#title").val();
+                state.shortContent = $("#short_content").val();
+                state.content = $("#content").val();
+                state.categoryId = parseInt($("#sl_category").val());
+                state.price = parseFloat($("#price").val());
+                state.area = $("#area").val();
+                state.sex = $("#sl_sex").val();
+                state.type = $("#sl_type").val();
+                if (state.type == 'day') {
+                    state.time = parseInt($("#sl_day").val());
+                } else if (state.type == 'week') {
+                    state.time = parseInt($("#sl_week").val());
+                } else {
+                    state.time = parseInt($("#sl_month").val());
+                }
+                if (state.provincialId == 0) {
+                    toastr.warning("Hãy chọn tỉnh thành!");
+                } else if (state.districtId == 0) {
+                    toastr.warning("Hãy chọn quận, huyện!");
+                } else if (state.wardId == '') {
+                    toastr.warning("Hãy chọn xã, phường!");
+                } else if (state.streetId == '') {
+                    toastr.warning("Hãy chọn đường, phố!");
+                } else if (state.title == '') {
+                    toastr.warning("Hãy nhập tiêu đề!");
+                } else if (state.shortContent == '') {
+                    toastr.warning("Hãy nhập mô tả ngắn!");
+                } else if (state.content == '') {
+                    toastr.warning("Hãy nhập mô tả chi tiết!");
+                } else if (state.categoryId == 0) {
+                    toastr.warning("Hãy chọn thể loại!");
+                } else if (state.price == 0) {
+                    toastr.warning("Hãy nhập giá!");
+                } else if (state.area == '') {
+                    toastr.warning("Hãy nhập diện tích!");
+                } else if (state.baseImages.length == 0) {
+                    toastr.warning("Hãy chọn hình ảnh để thuê nhanh hơn!");
+                } else {
+                    return true;
+                }
+                return false;
+            }
+        }
+        controller.init();
+    </script>
+}

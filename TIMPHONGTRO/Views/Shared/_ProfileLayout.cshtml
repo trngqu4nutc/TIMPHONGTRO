@@ -15,12 +15,39 @@
     <link rel="stylesheet" href="~/Assets/admin/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="~/Assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Toastr -->
     <link rel="stylesheet" href="~/Assets/admin/plugins/toastr/toastr.min.css">
     <link rel="stylesheet" href="~/Assets/admin/dist/css/adminlte.min.css">
     <style>
-        .error{
+        .error {
             color: red;
+        }
+
+        .browse_photos {
+            padding: 2rem;
+            background: #fff;
+            border: 2px dashed #bbb;
+            text-align: center;
+            cursor: copy;
+        }
+
+        #form_image .list_photos .photo_item {
+            padding-right: 0;
+            padding-left: 0;
+            margin-bottom: 20px;
+            cursor: move;
+            -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
+            margin-left: 15px;
+            margin-right: 9px;
+            background-color: #fff;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
     <!-- Google Font: Source Sans Pro -->
@@ -104,6 +131,8 @@
     <script src="~/Assets/admin/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="~/Assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="~/Assets/admin/plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- Toastr -->
     <script src="~/Assets/admin/plugins/toastr/toastr.min.js"></script>
     <!-- AdminLTE App -->
