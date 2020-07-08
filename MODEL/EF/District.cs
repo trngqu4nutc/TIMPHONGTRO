@@ -13,6 +13,7 @@ namespace MODEL.EF
         public District()
         {
             News = new HashSet<News>();
+            Streets = new HashSet<Street>();
             Wards = new HashSet<Ward>();
         }
 
@@ -27,6 +28,9 @@ namespace MODEL.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<News> News { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Street> Streets { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ward> Wards { get; set; }

@@ -26,6 +26,8 @@ namespace MODEL.EF
 
         public int? WardId { get; set; }
 
+        public int? StreetId { get; set; }
+
         [StringLength(50)]
         public string HomeNum { get; set; }
 
@@ -64,6 +66,8 @@ namespace MODEL.EF
         public virtual ICollection<Img> Imgs { get; set; }
 
         public virtual Provincial Provincial { get; set; }
+
+        public virtual Street Street { get; set; }
 
         public virtual Ward Ward { get; set; }
     }
