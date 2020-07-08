@@ -60,7 +60,8 @@ namespace MODEL.DAO
         }
         public int AddNew(NewDTO newDTO)
         {
-            News news = NewsMapper.toNews(newDTO);
+            News news = new News();
+            news = NewsMapper.toNews(news, newDTO);
             try
             {
                 _context.News.Add(news);
@@ -74,6 +75,30 @@ namespace MODEL.DAO
                 return 0;
             }
         }
+        public int UpdateNew(NewDTO newDTO)
+        {
+            News news = _context.News.Find(newDTO.newId);
+            news = NewsMapper.toNews(news, newDTO);
+            try
+            {
+                _context.SaveChanges();
+                var newsId = (_context.News.FirstOrDefault(x => x.Title == newDTO.title)).NewsId;
+                AddImages(newsId, newDTO.baseImages);
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        public NewDTO FindById(int newsId)
+        {
+            var news = _context.News.Find(newsId);
+            var newDTO = NewsMapper.toDTO(news);
+            newDTO.baseImages = new List<string>();
+            return newDTO;
+        }
+
         private void AddImages(int newsId, List<string> images)
         {
             foreach(var item in images)

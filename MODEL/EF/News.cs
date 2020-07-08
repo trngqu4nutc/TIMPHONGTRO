@@ -16,17 +16,17 @@ namespace MODEL.EF
 
         public int NewsId { get; set; }
 
-        public int? AccountId { get; set; }
+        public int AccountId { get; set; }
 
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
-        public int? ProvincialId { get; set; }
+        public int ProvincialId { get; set; }
 
-        public int? DistrictId { get; set; }
+        public int DistrictId { get; set; }
 
-        public int? WardId { get; set; }
+        public int WardId { get; set; }
 
-        public int? StreetId { get; set; }
+        public int StreetId { get; set; }
 
         [StringLength(50)]
         public string HomeNum { get; set; }
@@ -42,7 +42,7 @@ namespace MODEL.EF
         [StringLength(500)]
         public string SortContent { get; set; }
 
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         [StringLength(20)]
         public string Area { get; set; }
@@ -50,11 +50,11 @@ namespace MODEL.EF
         [StringLength(10)]
         public string Sex { get; set; }
 
-        public DateTime? StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateTime? EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
-        public int? ActiveFlag { get; set; }
+        public int ActiveFlag { get; set; }
 
         public virtual Account Account { get; set; }
 

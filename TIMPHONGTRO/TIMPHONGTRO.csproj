@@ -1962,6 +1962,7 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Add.cshtml" />
+    <Content Include="Views\News\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
