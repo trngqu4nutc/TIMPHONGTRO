@@ -148,6 +148,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\admin\dist\css\pagination.css" />
     <Content Include="Assets\admin\dist\css\adminlte.css" />
     <Content Include="Assets\admin\dist\css\adminlte.min.css" />
     <Content Include="Assets\admin\dist\css\alt\adminlte.components.css" />

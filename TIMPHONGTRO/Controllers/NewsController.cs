@@ -28,6 +28,16 @@ namespace TIMPHONGTRO.Controllers
             return View();
         }
         [HttpGet]
+        public JsonResult LoadData(string sex, int status, int page, int pageSize)
+        {
+            var result = new NewsDAO().GetAllPaging(sex, status, page, pageSize);
+            return Json(new
+            {
+                totalRow = result.TotalRecord,
+                data = result.Items
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
         public JsonResult LoadNews(int newid)
         {
             var result = new NewsDAO().FindById(newid);
@@ -99,6 +109,14 @@ namespace TIMPHONGTRO.Controllers
             {
                 data = check
             });
+        }
+        public JsonResult UpdateStatus(int newid, int status)
+        {
+            var result = new NewsDAO().UpdateStatus(newid, status);
+            return Json(new
+            {
+                data = result
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }
