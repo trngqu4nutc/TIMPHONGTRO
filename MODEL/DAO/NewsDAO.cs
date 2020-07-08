@@ -98,7 +98,48 @@ namespace MODEL.DAO
             newDTO.baseImages = new List<string>();
             return newDTO;
         }
-
+        public PagedResult<NewDTO> GetAllPaging(string sex, int status, int page, int pageSize)
+        {
+            var query = from n in _context.News
+                        select n;
+            if(!string.IsNullOrEmpty(sex))
+            {
+                query = query.Where(x => x.Sex == sex);
+            }
+            if(status != -2)
+            {
+                query = query.Where(x => x.ActiveFlag == status);
+            }
+            var result = new PagedResult<NewDTO>();
+            result.TotalRecord = query.Count();
+            result.Items = query.OrderByDescending(x => x.StartDate)
+                .Skip((page - 1) * pageSize).Take(pageSize)
+                .Select(x => new NewDTO()
+                {
+                    newId = x.NewsId,
+                    address = x.Address,
+                    price = x.Price,
+                    area = x.Area,
+                    sex = x.Sex,
+                    type = (x.EndDate.Day + "/" + x.EndDate.Month + "/" + x.EndDate.Year),
+                    time = x.ActiveFlag
+                }).ToList();
+            return result;
+        }
+        public int UpdateStatus(int newId, int status)
+        {
+            var news = _context.News.Find(newId);
+            news.ActiveFlag = status;
+            try
+            {
+                _context.SaveChanges();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
         private void AddImages(int newsId, List<string> images)
         {
             foreach(var item in images)

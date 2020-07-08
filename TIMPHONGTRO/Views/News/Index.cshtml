@@ -26,17 +26,31 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <h3 class="card-title">Bordered Table</h3>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" />
+                                    <div class="col-md-4">
+                                        <select id="sl_sex" class="form-control">
+                                            <option value="">-- Giới tính --</option>
+                                            <option value="tất cả">Tất cả</option>
+                                            <option value="nam">Nam</option>
+                                            <option value="nữ">Nữ</option>
+                                        </select>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <select id="sl_status" class="form-control">
+                                            <option value="-2">-- Trạng thái --</option>
+                                            <option value="0">Chờ duyệt</option>
+                                            <option value="1">Đang rao</option>
+                                            <option value="-1">Hết hạn</option>
+                                            <option value="2">Đã khóa</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
                                         <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                        <button class="btn btn-secondary"><i class="fas fa-redo"></i></button>
+                                        <button id="btn_refresh" class="btn btn-secondary"><i class="fas fa-redo"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -48,86 +62,205 @@
                             <thead>
                                 <tr>
                                     <th>Mã</th>
-                                    <th>Họ và tên</th>
-                                    <th>Sô điện thoại</th>
-                                    <th>Email</th>
-                                    <th>Số dư</th>
-                                    <th style="width: 120px">
-                                        <button class="btn btn-success"><i class="fas fa-plus-square"></i></button>
+                                    <th style="width: 240px">Địa chỉ</th>
+                                    <th>Giá</th>
+                                    <th>Diện tích</th>
+                                    <th>Giới tính</th>
+                                    <th>Ngày hết hạn</th>
+                                    <th>Trạng thái</th>
+                                    <th style="width: 50px">
+                                        <a href="/news/add" class="btn btn-success"><i class="fas fa-plus-square"></i></a>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>
-                                        <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>
-                                        <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>
-                                        <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>
-                                        <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>
-                                        <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
+                            <tbody id="tbl_data">
                             </tbody>
                         </table>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer clearfix">
-                        <ul class="pagination pagination-sm m-0 float-right">
-                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                        </ul>
+                    <div id="pagination" class="pagination">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script id="data-template" type="x-tmpl-mustache">
+    <tr>
+        <td>#{{newId}}</td>
+        <td>{{address}}</td>
+        <td>{{price}} VND</td>
+        <td>{{area}} m2</td>
+        <td>{{sex}}</td>
+        <td>{{time}}</td>
+        <td><button data-id="{{newId}}" data-status="{{status}}" class="btn_accept btn btn-sm btn-{{style}}">{{textStatus}}</button></td>
+        <td>
+            <a href="/news/edit?newid={{newId}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+        </td>
+    </tr>
+</script>
+
+@section scripts{
+    <script src="~/Assets/admin/js/jquery.twbsPagination.min.js"></script>
+    <script src="~/Assets/admin/js/mustache.min.js"></script>
+    <script>
+        const state = {
+            sex: '',
+            status: -2,
+            page: 1,
+            pageSize: 2
+        }
+        const controller = {
+            init: () => {
+                controller.loadData(true);
+            },
+            registerEvent: () => {
+                $("#sl_sex").off('change').on('change', function () {
+                    state.sex = $(this).val();
+                    controller.loadData(true);
+                });
+                $("#sl_status").off('change').on('change', function () {
+                    state.status = parseInt($(this).val());
+                    controller.loadData(true);
+                });
+                $("#btn_refresh").off('click').on('click', function () {
+                    controller.refreshState();
+                    controller.loadData(true);
+                });
+                $(".btn_accept").off('click').on('click', function () {
+                    let btn_accept = $(this);
+                    let newId = btn_accept.data('id');
+                    if (btn_accept.data('status') == 1) {
+                        Swal.fire({
+                            title: 'Khóa bài viết này?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Đồng ý',
+                            cancelButtonText: 'Hủy'
+                        }).then((result) => {
+                            if (result.value) {
+                                controller.changeStatus(newId, -1, btn_accept);
+                            }
+                        });
+                    }
+                });
+            },
+            changeStatus: (newId, status, btn_accept) => {
+                $.ajax({
+                    url: '/news/updatestatus',
+                    method: 'GET',
+                    data: {
+                        newid: newId,
+                        status: status
+                    },
+                    dataType: 'json',
+                    success: (res) => {
+                        if (res.data == 1) {
+                            toastr.success("Thay đổi trạng thái thành công!");
+                            btn_accept.removeClass('btn-success').removeClass('btn_accepts').addClass('btn-danger').text('Đã khóa');
+                        } else {
+                            toastr.error("Có lỗi xảy ra!");
+                        }
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            },
+            loadData: (changePageSize) => {
+                $.ajax({
+                    url: '/news/loaddata',
+                    method: 'GET',
+                    data: {
+                        sex: state.sex,
+                        status: state.status,
+                        page: state.page,
+                        pageSize: state.pageSize
+                    },
+                    dataType: 'json',
+                    success: (res) => {
+                        let html = '';
+                        let template = $('#data-template').html();
+                        $.each(res.data, function (i, item) {
+                            html += Mustache.render(template, {
+                                newId: item.newId,
+                                address: item.address,
+                                price: controller.formatCurrency(item.price),
+                                area: item.area,
+                                sex: item.sex,
+                                time: item.type,
+                                style: controller.setStyle(item.time),
+                                status: item.time,
+                                textStatus: controller.setStatusText(item.time)
+                            });
+                        });
+                        $("#tbl_data").html(html);
+                        controller.registerEvent();
+                        controller.paging(res.totalRow, changePageSize)
+                    }
+                });
+            },
+            setStyle: (status) => {
+                if (status == 0) {
+                    return 'primary';
+                } else if (status == 1) {
+                    return 'success';
+                } else if (status == 2) {
+                    return 'warning';
+                } else {
+                    return 'danger';
+                }
+            },
+            setStatusText: (status) => {
+                if (status == 0) {
+                    return 'Chờ duyệt';
+                } else if (status == 1) {
+                    return 'Đang rao';
+                } else if (status == 2) {
+                    return 'Hết hạn';
+                } else {
+                    return 'Đã khóa';
+                }
+            },
+            refreshState: () => {
+                state.sex = '';
+                state.status = -2;
+            },
+            formatCurrency: (n, separate = ".") => {
+                var s = n.toString();
+                var regex = /\B(?=(\d{3})+(?!\d))/g;
+                var ret = s.replace(regex, separate);
+                return ret;
+            },
+            paging: function (totalRow, changePageSize) {
+                var totalPage = Math.ceil(totalRow / state.pageSize);
+                if ($('#pagination a').length === 0 || changePageSize === true) {
+                    $('#pagination').empty();
+                    $('#pagination').removeData("twbs-pagination");
+                    $('#pagination').unbind("page");
+                }
+
+                $('#pagination').twbsPagination({
+                    totalPages: totalPage,
+                    visiblePages: 5,
+                    first: "Đầu",
+                    last: "Cuối",
+                    next: "Tiếp",
+                    prev: "Trước",
+                    onPageClick: function (event, page) {
+                        state.page = page;
+                        setTimeout(function () {
+                            controller.loadData();
+                        }, 10);
+                    }
+                });
+            }
+        }
+        controller.init();
+    </script>
+}
+
+
