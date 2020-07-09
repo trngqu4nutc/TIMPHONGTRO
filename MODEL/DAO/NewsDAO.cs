@@ -98,9 +98,53 @@ namespace MODEL.DAO
             newDTO.baseImages = new List<string>();
             return newDTO;
         }
-        public PagedResult<NewDTO> GetAllPaging(string sex, int status, int page, int pageSize)
+        public NewDTO GetDetail(int newsId)
+        {
+            var news = _context.News.Find(newsId);
+            var newDTO = new NewDTO();
+            newDTO.address = news.Address;
+            newDTO.title = news.Title;
+            newDTO.shortContent = news.SortContent;
+            newDTO.content = news.Content;
+            return newDTO;
+        }
+        public PagedResult<NewDTO> GetAllPaging(string fullname, string sex, int status, int page, int pageSize)
         {
             var query = from n in _context.News
+                        select n;
+            if (!string.IsNullOrEmpty(fullname))
+            {
+                query = query.Where(x => x.Account.Fullname.Contains(fullname));
+            }
+            if (!string.IsNullOrEmpty(sex))
+            {
+                query = query.Where(x => x.Sex == sex);
+            }
+            if (status != -2)
+            {
+                query = query.Where(x => x.ActiveFlag == status);
+            }
+            var result = new PagedResult<NewDTO>();
+            result.TotalRecord = query.Count();
+            result.Items = query.OrderByDescending(x => x.StartDate)
+                .Skip((page - 1) * pageSize).Take(pageSize)
+                .Select(x => new NewDTO()
+                {
+                    newId = x.NewsId,
+                    fullname = x.Account.Fullname,
+                    address = x.Address,
+                    price = x.Price,
+                    area = x.Area,
+                    sex = x.Sex,
+                    type = (x.EndDate.Day + "/" + x.EndDate.Month + "/" + x.EndDate.Year),
+                    time = x.ActiveFlag
+                }).ToList();
+            return result;
+        }
+        public PagedResult<NewDTO> GetAllPaging(string sex, int status, int page, int pageSize, int accountId)
+        {
+            var query = from n in _context.News
+                        where n.AccountId == accountId
                         select n;
             if(!string.IsNullOrEmpty(sex))
             {
@@ -132,6 +176,27 @@ namespace MODEL.DAO
             news.ActiveFlag = status;
             try
             {
+                _context.SaveChanges();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        public List<string> GetImagesByNewId(int newId)
+        {
+            return _context.Imgs
+                .Where(x => x.NewsId == newId)
+                .Select(x => x.Picture)
+                .ToList();
+        }
+        public int DeleteImage(string picture)
+        {
+            var img = _context.Imgs.FirstOrDefault(x => x.Picture == picture);
+            try
+            {
+                _context.Imgs.Remove(img);
                 _context.SaveChanges();
                 return 1;
             }

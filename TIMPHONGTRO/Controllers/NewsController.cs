@@ -27,10 +27,33 @@ namespace TIMPHONGTRO.Controllers
         {
             return View();
         }
+        public ActionResult Images()
+        {
+            return View();
+        }
+        [HttpGet]
+        public JsonResult LoadImages(int newid)
+        {
+            var images = new NewsDAO().GetImagesByNewId(newid);
+            return Json(new
+            {
+                data = images
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteImage(string picture)
+        {
+            var result = new NewsDAO().DeleteImage(picture);
+            return Json(new
+            {
+                data = result
+            });
+        }
         [HttpGet]
         public JsonResult LoadData(string sex, int status, int page, int pageSize)
         {
-            var result = new NewsDAO().GetAllPaging(sex, status, page, pageSize);
+            var accountId = ((AccountDTO)Session[Constants.USER_SESSION]).AccountId;
+            var result = new NewsDAO().GetAllPaging(sex, status, page, pageSize, accountId);
             return Json(new
             {
                 totalRow = result.TotalRecord,
@@ -94,7 +117,7 @@ namespace TIMPHONGTRO.Controllers
                 try
                 {
                     new Bitmap(image).Save(fullPath, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    newDTO.baseImages[i] = "~/Public/img/" + generateFileName;
+                    newDTO.baseImages[i] = "/Public/img/" + generateFileName;
                 }
                 catch
                 {
