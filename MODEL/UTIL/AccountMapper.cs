@@ -13,11 +13,13 @@ namespace MODEL.UTIL
     {
         public static Account toAccount(AccountDTO accountDTO)
         {
-            var account = new Account();
-            account.PhoneNum = accountDTO.PhoneNum;
-            account.Password = BcryptPass.HashPassword(accountDTO.Password);
-            account.Fullname = accountDTO.Fullname;
-            account.RoleId = 2;
+            var account = new Account
+            {
+                PhoneNum = accountDTO.PhoneNum,
+                Password = BcryptPass.HashPassword(accountDTO.Password),
+                Fullname = accountDTO.Fullname,
+                RoleId = 2
+            };
             return account;
         }
         public static AccountDTO toDTO(Account account)

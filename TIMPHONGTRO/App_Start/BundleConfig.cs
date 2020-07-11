@@ -22,9 +22,17 @@ namespace TIMPHONGTRO
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/Content/plugins").Include(
+                "~/Content/plugins/mustache.min.js"
+                ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site1.css",
+                      "~/Content/MyStyles/navbarTop1.css",
+                      "~/Content/MyStyles/header.css",
+                      "~/Content/MyStyles/menu.css",
+                      "~/Content/MyStyles/searchbar1.css"));
         }
     }
 }

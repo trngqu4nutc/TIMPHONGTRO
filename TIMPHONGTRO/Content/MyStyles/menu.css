@@ -1,0 +1,21 @@
+﻿#menu {
+    background: #055699;
+    width: 100%;
+}
+#menu-main-menu {
+    list-style: none;
+    display: flex;
+}
+.navbar_item:hover {
+    background: #dc3545;
+}
+.navbar_item a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 5px;
+}
+.navbar_item {
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+}

@@ -1,0 +1,1 @@
+﻿$('#imgid_0').addClass('active');

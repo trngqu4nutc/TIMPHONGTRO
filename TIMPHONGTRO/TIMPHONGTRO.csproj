@@ -136,6 +136,7 @@
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\GenerateName.cs" />
+    <Compile Include="Controllers\DetailNewsController.cs" />
     <Compile Include="Controllers\AuthUserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -145,6 +146,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAO\INewsDao.cs" />
+    <Compile Include="Models\DAO\NewsDao.cs" />
+    <Compile Include="Models\DAO\QuanDuongDao.cs" />
+    <Compile Include="Models\DTO\FilterDTO.cs" />
+    <Compile Include="Models\DTO\NewsDTO.cs" />
+    <Compile Include="Models\DTO\NewsListDTO.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1826,10 +1833,39 @@
     <Content Include="Assets\admin\plugins\toastr\toastr.css" />
     <Content Include="Assets\admin\plugins\toastr\toastr.min.css" />
     <Content Include="Assets\admin\plugins\toastr\toastr.min.js" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\gulpfile.js" />
+    <Content Include="Content\MyScripts\controller\homeController.js" />
+    <Content Include="Content\MyScripts\controller\searchBar.js" />
+    <Content Include="Content\MyScripts\detailnews.js" />
+    <Content Include="Content\MyStyles\header.css" />
+    <Content Include="Content\MyStyles\menu.css" />
+    <Content Include="Content\MyStyles\navbarTop1.css" />
+    <Content Include="Content\MyStyles\searchbar1.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\plugins\mustache.min.js" />
+    <Content Include="Content\Site1.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\vendor\jquery\jquery.js" />
+    <Content Include="Content\vendor\jquery\jquery.min.js" />
+    <Content Include="Content\vendor\jquery\jquery.slim.js" />
+    <Content Include="Content\vendor\jquery\jquery.slim.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1932,6 +1968,22 @@
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\Images.cshtml" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.js.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="Content\vendor\jquery\jquery.min.map" />
+    <Content Include="Content\vendor\jquery\jquery.slim.min.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1968,6 +2020,11 @@
     <Content Include="Views\News\Add.cshtml" />
     <Content Include="Views\News\Edit.cshtml" />
     <Content Include="Views\News\Images.cshtml" />
+    <Content Include="Views\Home\SearchBar.cshtml" />
+    <Content Include="Views\Shared\header.cshtml" />
+    <Content Include="Views\Shared\menu.cshtml" />
+    <Content Include="Views\Shared\navbarTop.cshtml" />
+    <Content Include="Views\DetailNews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -23,7 +23,6 @@ namespace MODEL.EF
         [StringLength(12)]
         public string PhoneNum { get; set; }
 
-        [StringLength(100)]
         public string Password { get; set; }
 
         [StringLength(30)]

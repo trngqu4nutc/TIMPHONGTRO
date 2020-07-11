@@ -1,0 +1,12 @@
+﻿#myform {
+    display: flex;
+}
+.search_field_item {
+    padding: 0 5px;
+}
+#search_city {
+    width: 97px;
+}
+#search_dientich {
+    width: 150px;
+}

@@ -1,0 +1,181 @@
+﻿@model MODEL.EF.News
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles {
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+}
+@section scripts {
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/MyScripts/detailnews.js"></script>
+}
+<div class="col-lg-8">
+
+    <!-- Title -->
+    <h1 class="mt-4">@Model.Title</h1>
+
+    <!-- Author -->
+    <p class="lead">
+        đăng bởi
+        <a href="#">@Model.Account.Fullname</a>
+    </p>
+
+    <hr>
+
+    <!-- Date/Time -->
+    <p>Ngày đăng @Model.StartDate.ToString("dddd, dd MMMM yyyy")</p>
+
+    <hr>
+
+    <!-- Preview Image -->
+    <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            @{
+                int dem = 0;
+                foreach (var item in Model.Imgs.Where(x => x.NewsId == Model.NewsId).ToList())
+                {
+                    <div class="carousel-item" id="imgid_@dem">
+                        <img class="d-block img-fluid" src="@item.Picture" alt="slide" style="width: 730px; height: 400px;">
+                    </div>
+                    dem += 1;
+                }
+            }
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td class="name">Địa chỉ</td>
+                    <td colspan="3">
+                        @Model.Address
+                    </td>
+                </tr>
+                <tr>
+                    <td class="name">Khu vực</td>
+                    <td colspan="3">
+                        <h2 style="margin: 0;">
+                            Cho thuê Phòng trọ @Model.District.Name
+                        </h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="name">Loại tin rao:</td>
+                    <td colspan="3">
+                        <h2 style="margin: 0;">
+                            @Model.Category.Description
+                        </h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="name">Mã tin</td>
+                    <td>@Model.NewsId</td>
+                    <td class="name">Người đăng:</td>
+                    <td>@Model.Account.Fullname</td>
+                </tr>
+                <tr>
+                    <td class="name">Đối tượng:</td>
+                    <td>
+                        @{
+                            var dt = Int32.Parse(Model.Sex) == 0 ? "Nữ" : Int32.Parse(Model.Sex) == 1 ? "Nam" : "Tất cả";
+                        } @dt
+                    </td>
+                    <td class="name">Điện thoại:</td>
+                    <td>
+                        <span style="color: #4cae4c; font-weight: bold; font-size: 1.5rem;">@Model.Account.PhoneNum</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="name">Ngày cập nhật:</td>
+                    <td>@Model.StartDate.ToString("dd MMMM yyyy")</td>
+                    <td class="name">Diện tích:</td>
+                    <td>
+                        <span style="color: #e74c3c; font-weight: bold;">@Model.Area m²</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="name">Ngày hết hạn:</td>
+                    <td>@Model.EndDate.ToString("dd MMMM yyyy")</td>
+                    <td class="name">Giá cho thuê:</td>
+                    <td>
+                        <span class="price" style="color: #e74c3c; font-weight: bold;">@(Model.Price/1000000) triệu/tháng</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <hr>
+
+    <!-- Post Content -->
+    <b>Thông tin mô tả</b>
+    @{
+        var c = System.Text.RegularExpressions.Regex.Split(Model.Content, @"\d+\. ");
+        foreach (var i in c)
+        {
+            <p>@i</p>
+        }
+    }
+    <hr>
+
+    <!-- Comments Form -->
+    <div class="card my-4">
+        <h5 class="card-header">Leave a Comment:</h5>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Single Comment -->
+    <div class="media mb-4">
+        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+        <div class="media-body">
+            <h5 class="mt-0">Commenter Name</h5>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </div>
+    </div>
+
+    <!-- Comment with nested comments -->
+    <div class="media mb-4">
+        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+        <div class="media-body">
+            <h5 class="mt-0">Commenter Name</h5>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+            <div class="media mt-4">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0">Commenter Name</h5>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+            </div>
+
+            <div class="media mt-4">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0">Commenter Name</h5>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

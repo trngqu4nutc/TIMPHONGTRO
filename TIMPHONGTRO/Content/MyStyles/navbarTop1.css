@@ -1,0 +1,11 @@
+﻿#navbarTop {
+    background: #e4e0e0;
+    width: 100%;
+    padding: 5px;
+}
+.user_welcome {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
