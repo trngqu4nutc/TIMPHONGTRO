@@ -50,9 +50,11 @@ namespace TIMPHONGTRO.Areas.Admin.Controllers
         public JsonResult LoadImages(int newid)
         {
             var images = new NewsDAO().GetImagesByNewId(newid);
+            var status = new NewsDAO().GetStatusByNewId(newid);
             return Json(new
             {
-                data = images
+                data = images,
+                status = status
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
