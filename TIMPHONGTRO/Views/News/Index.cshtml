@@ -96,8 +96,8 @@
         <td>{{time}}</td>
         <td><button data-id="{{newId}}" data-status="{{status}}" class="btn_accept btn btn-sm btn-{{style}}">{{textStatus}}</button></td>
         <td>
-            <a href="/news/edit?newid={{newId}}" title="chỉnh sửa" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-            <a href="/news/images?newid={{newId}}" title="danh sách ảnh" class="btn btn-info"><i class="fas fa-images"></i></a>
+            <button onclick="{{eventEdit}}" data-id="{{newId}}" title="chỉnh sửa" class="btn btn-warning"><i class="fas fa-edit"></i></button>
+            <a href="/news/images?newid={{newId}}"  title="danh sách ảnh" class="btn btn-info"><i class="fas fa-images"></i></a>
         </td>
     </tr>
 </script>
@@ -149,6 +149,9 @@
                     }
                 });
             },
+            editNews: (newid) => {
+                location.href = `/news/edit?newid=${newid}`;
+            },
             changeStatus: (newId, status, btn_accept) => {
                 $.ajax({
                     url: '/news/updatestatus',
@@ -194,9 +197,10 @@
                                 area: item.area,
                                 sex: item.sex,
                                 time: item.type,
-                                style: controller.setStyle(item.time),
-                                status: item.time,
-                                textStatus: controller.setStatusText(item.time)
+                                style: controller.setStyle(item.activeFlag),
+                                status: item.activeFlag,
+                                eventEdit: (item.activeFlag == 1 || item.activeFlag == 0) ? "controller.editNews($(this).data('id'))" : "",
+                                textStatus: controller.setStatusText(item.activeFlag)
                             });
                         });
                         $("#tbl_data").html(html);

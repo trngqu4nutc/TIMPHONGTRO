@@ -79,6 +79,7 @@ namespace MODEL.DAO
         {
             News news = _context.News.Find(newDTO.newId);
             news = NewsMapper.toNews(news, newDTO);
+            news.ActiveFlag = 0;
             try
             {
                 _context.SaveChanges();
@@ -137,7 +138,7 @@ namespace MODEL.DAO
                     area = x.Area,
                     sex = x.Sex,
                     type = (x.EndDate.Day + "/" + x.EndDate.Month + "/" + x.EndDate.Year),
-                    time = x.ActiveFlag
+                    activeFlag = x.ActiveFlag
                 }).ToList();
             return result;
         }
@@ -166,8 +167,15 @@ namespace MODEL.DAO
                     area = x.Area,
                     sex = x.Sex,
                     type = (x.EndDate.Day + "/" + x.EndDate.Month + "/" + x.EndDate.Year),
-                    time = x.ActiveFlag
+                    activeFlag = (x.EndDate > DateTime.Now || x.ActiveFlag == -1 ) ? x.ActiveFlag : 2
                 }).ToList();
+            foreach (var item in result.Items)
+            {
+                if (item.activeFlag == 2)
+                {
+                    SetEndDate(item.newId);
+                }
+            }
             return result;
         }
         public int UpdateStatus(int newId, int status)
@@ -190,6 +198,10 @@ namespace MODEL.DAO
                 .Where(x => x.NewsId == newId)
                 .Select(x => x.Picture)
                 .ToList();
+        }
+        public int GetStatusByNewId(int newId)
+        {
+            return _context.News.Find(newId).ActiveFlag;
         }
         public int DeleteImage(string picture)
         {
@@ -217,6 +229,12 @@ namespace MODEL.DAO
                 _context.Imgs.Add(image);
                 _context.SaveChanges();
             }
+        }
+        private void SetEndDate(int newId)
+        {
+            var news = _context.News.Find(newId);
+            news.ActiveFlag = 2;
+            _context.SaveChanges();
         }
     }
 }

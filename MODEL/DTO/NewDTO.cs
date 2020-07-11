@@ -14,6 +14,7 @@ namespace MODEL.DTO
         public int districtId { get; set; }
         public int wardId { get; set; }
         public int streetId { get; set; }
+        public int activeFlag { get; set; }
         public string fullname { get; set; }
         public string homeNum { get; set; }
         public string address { get; set; }

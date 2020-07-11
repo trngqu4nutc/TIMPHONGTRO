@@ -274,9 +274,9 @@
                                 area: item.area,
                                 sex: item.sex,
                                 time: item.type,
-                                style: controller.setStyle(item.time),
-                                status: item.time,
-                                textStatus: controller.setStatusText(item.time)
+                                style: controller.setStyle(item.activeFlag),
+                                status: item.activeFlag,
+                                textStatus: controller.setStatusText(item.activeFlag)
                             });
                         });
                         $("#tbl_data").html(html);
