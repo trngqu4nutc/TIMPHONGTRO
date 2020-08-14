@@ -1,4 +1,6 @@
 ﻿var homeConfig = {
+    minP: 0,
+    maxP: 100,
     type: 1,
     tinh: 1,
     quan: 0,
@@ -19,10 +21,48 @@ var home = {
             homeConfig.tinh = $('#search_city').val()
             homeConfig.quan = $('#tblDataQuan').val()
             homeConfig.duong = $('#tblDataDuong').val()
+            home.filterPrice()
             homeConfig.html = ''
             homeConfig.pageIndex = 1
             home.loadData()
         })
+    },
+    filterPrice: function () {
+        let choosePrice = parseInt($('.choose-price').val())
+        switch (choosePrice) {
+            case 1:
+                homeConfig.minP = 0
+                homeConfig.maxP = 1
+                break
+            case 2:
+                homeConfig.minP = 1
+                homeConfig.maxP = 2
+                break
+            case 3:
+                homeConfig.minP = 2
+                homeConfig.maxP = 3
+                break
+            case 4:
+                homeConfig.minP = 3
+                homeConfig.maxP = 5
+                break
+            case 5:
+                homeConfig.minP = 5
+                homeConfig.maxP = 7
+                break
+            case 6:
+                homeConfig.minP = 7
+                homeConfig.maxP = 10
+                break
+            case 7:
+                homeConfig.minP = 10
+                homeConfig.maxP = 100
+                break
+            default:
+                homeConfig.minP = 0
+                homeConfig.maxP = 100
+                break
+        }
     },
     loadData: function () {
         var model = {
@@ -30,7 +70,8 @@ var home = {
             ProvincialId: parseInt(homeConfig.tinh),
             DistrictId: parseInt(homeConfig.quan),
             StreetId: parseInt(homeConfig.duong),
-            Price: 0,
+            minP: homeConfig.minP,
+            maxP: homeConfig.maxP,
             Area: '0'
         }
         $.ajax({

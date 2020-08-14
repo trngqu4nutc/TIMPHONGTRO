@@ -43,14 +43,18 @@ namespace MODEL.DAO
             {
                 return 0;
             }
-            var account = AccountMapper.toAccount(accountDTO);
+            var account = new Account();
+            account.PhoneNum = accountDTO.PhoneNum;
+            account.Password = BcryptPass.HashPassword(accountDTO.Password);
+            account.RoleId = 2;
+            account.Fullname = accountDTO.Fullname;
             try
             {
                 _context.Accounts.Add(account);
                 _context.SaveChanges();
                 return 1;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return -1;
             }

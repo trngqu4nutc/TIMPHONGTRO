@@ -1,6 +1,7 @@
 ﻿var search = {
     init: function () {
         search.registerEvent()
+        //search.logout()
     },
     registerEvent: function () {
         $.ajax({
@@ -73,7 +74,22 @@
                 }
             })
         })
-    }
+
+    },
+    /*logout: function () {
+        $.ajax({
+            url: '/login/logout',
+            type: 'POST',
+            dataType: 'json',
+            success: res => {
+                console.log(res.msg)
+                window.location.reload()
+            },
+            error: e => {
+                console.log(e)
+            }
+        })
+    }*/
 }
 
 search.init()

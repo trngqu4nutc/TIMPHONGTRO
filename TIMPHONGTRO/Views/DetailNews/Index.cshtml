@@ -87,9 +87,7 @@
                 <tr>
                     <td class="name">Đối tượng:</td>
                     <td>
-                        @{
-                            var dt = Int32.Parse(Model.Sex) == 0 ? "Nữ" : Int32.Parse(Model.Sex) == 1 ? "Nam" : "Tất cả";
-                        } @dt
+                        @Model.Sex
                     </td>
                     <td class="name">Điện thoại:</td>
                     <td>

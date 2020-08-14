@@ -2,14 +2,34 @@
 <div id="navbarTop">
     <div class="container clearfix">
         <div class="user_welcome js-reload-html-header">
-            <a rel="nofollow"
-               class="link user_login_link btn btn-light"
-               href="/login">Đăng nhập</a>
-            <a rel="nofollow"
-               class="link user_register_link btn btn-light ml-2"
-               href="/register">
-                Đăng ký
-            </a>
+            @{
+                var session = (MODEL.DTO.AccountDTO)Session[TIMPHONGTRO.Common.Constants.USER_SESSION];
+                if (session == null)
+                {
+                    <a rel="nofollow"
+                       class="link user_login_link btn btn-light"
+                       href="/login">Đăng nhập</a>
+                    <a rel="nofollow"
+                       class="link user_register_link btn btn-light ml-2"
+                       href="/register">
+                        Đăng ký
+                    </a>
+                }
+                else
+                {
+                    <a rel="nofollow"
+                       class="link user_profile_link btn btn-danger ml-2"
+                       href="@Url.Action("index", "profile", new { id = session.AccountId })">
+                        Profile @session.Fullname
+                    </a>
+                    <a rel="nofollow"
+                       class="link user_logout_link btn btn-light ml-2"
+                       href="/login/logout">
+                        Đăng xuất
+                    </a>
+                }
+            }
+
         </div>
     </div>
 </div>

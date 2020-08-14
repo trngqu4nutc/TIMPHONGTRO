@@ -103,7 +103,7 @@ namespace TIMPHONGTRO.Models.DAO
         public IEnumerable<NewsDTO> FilterNews(FilterDTO filterDTO)
         {
             var dateTime = DateTime.Now;
-            var news = db.News.Where(x => x.CategoryId == filterDTO.CategoryId && x.ActiveFlag == 1 && x.EndDate > dateTime);
+            var news = db.News.Where(x => x.CategoryId == filterDTO.CategoryId && x.ActiveFlag == 1 && x.EndDate > dateTime && x.Price/1000000 > filterDTO.minP && x.Price/1000000 < filterDTO.maxP);
             if (filterDTO.ProvincialId != 0)
             {
                 news = news.Where(x => x.ProvincialId == filterDTO.ProvincialId);
@@ -115,10 +115,6 @@ namespace TIMPHONGTRO.Models.DAO
             if (filterDTO.StreetId != 0)
             {
                 news = news.Where(x => x.StreetId == filterDTO.StreetId);
-            }
-            if (filterDTO.Price != 0)
-            {
-                news = news.Where(x => x.Price == filterDTO.Price);
             }
             if (filterDTO.Area != "0")
             {

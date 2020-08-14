@@ -36,5 +36,12 @@ namespace TIMPHONGTRO.Controllers
                 role = accountDTO.RoleId
             });
         }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session[Constants.USER_SESSION] = null;
+            return RedirectToAction("index", "home");
+        }
     }
 }

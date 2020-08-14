@@ -13,8 +13,13 @@ namespace TIMPHONGTRO.Controllers
     public class ProfileController : AuthUserController
     {
         // GET: Profile
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
+            var session = (AccountDTO)Session[Constants.USER_SESSION];
+            if(id != session.AccountId)
+            {
+                return RedirectToAction("index", "login");
+            }
             return View();
         }
 

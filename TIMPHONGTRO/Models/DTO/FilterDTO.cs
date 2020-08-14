@@ -11,7 +11,8 @@ namespace TIMPHONGTRO.Models.DTO
         public int ProvincialId { get; set; }
         public int DistrictId { get; set; }
         public int StreetId { get; set; }
-        public int Price { get; set; }
+        public int minP { get; set; }
+        public int maxP { get; set; }
         public string Area { get; set; }
     }
 }
